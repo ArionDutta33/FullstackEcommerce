@@ -8,14 +8,37 @@ import { VStack } from "@/components/ui/vstack";
 import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Redirect } from "expo-router";
+import { createOrder } from "@/api/orders";
 
 const CartScreen = () => {
   const items = useCart((state) => state.items);
   const resetCart = useCart((state) => state.resetCard);
+
+const createOrderMutation = useMutation({
+  mutationFn: () =>
+    createOrder(
+      items.map((item) => ({
+        product: item.product.id,
+        quantity: item.quantity, // Assuming you meant `item.quantity` instead of `item.product.price`
+        price: item.product.prcie, // Assuming `item.price` is the correct field here
+      }))
+    ),
+  onSuccess: (data) => {
+    console.log(data)
+    resetCart();
+  },
+  onError: (error) => {
+    console.log(error);
+  },
+});
+
+
+
+
   const onCheckout = async () => {
     //*send order to server
-    resetCart();
-  };
+    createOrderMutation.mutate();
+   };
   if (items.length === 0) {
     return <Redirect href={"/"} />;
   }
