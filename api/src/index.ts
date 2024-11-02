@@ -1,6 +1,7 @@
 import express from "express";
 import productRouter from "./routes/products/index.js";
 import authRouter from "./routes/auth/index.js";
+import orderRouter from "./routes/orders/index.js";
 import serverless from "serverless-http";
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 
 app.use("/products", productRouter);
 app.use("/auth", authRouter);
+app.use("/orders", orderRouter);
 
 if (process.env.NODE_ENV === "dev") {
   app.listen(3000, () => {

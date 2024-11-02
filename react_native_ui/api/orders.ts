@@ -7,7 +7,7 @@ export async function createOrder(items: any[]) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": token,
+      Authorization: token,
     },
     body: JSON.stringify({ order: {}, items }),
   });
