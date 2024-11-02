@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import { validateData } from "../../middlewares/validationMiddleware";
 import { db } from "../../db";
 import { eq } from "drizzle-orm";
-
+import { Request, Response } from "express";
 const router = Router();
 
 router.post("/register", validateData(createUserSchema), async (req, res) => {
@@ -25,6 +25,7 @@ router.post("/register", validateData(createUserSchema), async (req, res) => {
     res.send(500).send("Something went wrong");
   }
 });
+
 router.post("/login", validateData(loginSchema), async (req, res) => {
   try {
     const { email, password } = req.cleanBody;
@@ -33,16 +34,18 @@ router.post("/login", validateData(loginSchema), async (req, res) => {
       .from(usersTable)
       .where(eq(usersTable.email, email));
     if (!user) {
-      return res.status(401).json({
-        message: "Invalid credentials",
+      res.status(401).json({
+        error: "Invalid credentials",
       });
+      return;
     }
     const mathched = await bcrypt.compare(password, user.password);
 
     if (!mathched) {
-      return res.status(401).json({
+      res.status(401).json({
         error: "Authentication failed",
       });
+      return;
     }
 
     //make jwt token

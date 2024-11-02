@@ -7,13 +7,15 @@ export async function verifyToken(
 ) {
   const token = req.header("Authorization");
   if (!token) {
-    return res.status(401).json({ error: "Access denied" });
+    res.status(401).json({ error: "Access denied" });
+    return;
   }
   try {
     //decode jwt
     const decoded = jwt.verify(token, "secret");
     if (typeof decoded !== "object" || !decoded?.userId) {
-      return res.status(400).json({ error: "Invalid token" });
+      res.status(400).json({ error: "Invalid token" });
+      return;
     }
     req.userId = decoded.userId;
     req.role = decoded.role;
@@ -31,7 +33,8 @@ export async function verifySeller(
 ) {
   const role = req.role;
   if (role !== "seller") {
-    return res.status(401).json({ error: "Access denied" });
+    res.status(401).json({ error: "Access denied" });
+    return;
   }
   next();
 }
