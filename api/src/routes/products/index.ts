@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import { Router } from "express";
 
 import {
   listProducts,
@@ -7,11 +7,17 @@ import {
   createProduct,
   deleteProduct,
 } from "./productsController";
+import { validateData } from "../../middlewares/validationMiddleware";
+import {
+  createProductSchema,
+  updateProductSchema,
+} from "../../db/productSchema";
+
 const router = Router();
 router.get("/", listProducts);
 router.get("/:id", getProductById);
-router.put("/:id", updateProduct);
+router.put("/:id", validateData(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);
-router.post("/", createProduct);
+router.post("/", validateData(createProductSchema), createProduct);
 
 export default router;
