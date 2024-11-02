@@ -7,7 +7,9 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 const RootLayout = () => {
   return (
     <GluestackUIProvider>
-      <Stack />
+      <Stack>
+        <Stack.Screen name="index" options={{ title: "Shop" }} />
+      </Stack>
     </GluestackUIProvider>
   );
 };
