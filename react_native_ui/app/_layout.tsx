@@ -26,9 +26,19 @@ const RootLayout = () => {
                 </Pressable>
               </Link>
             ),
+            headerLeft: () => (
+              <Link href={"/login"} asChild>
+                <Pressable className="flex-row gap-2">
+                  <AntDesign name="user" size={24} color="black" />
+                </Pressable>
+              </Link>
+            ),
           }}
         >
-          <Stack.Screen name="index" options={{ title: "Shop" }} />
+          <Stack.Screen
+            name="index"
+            options={{ title: "Shop", headerTitleAlign: "center" }}
+          />
         </Stack>
       </GluestackUIProvider>
     </QueryClientProvider>
