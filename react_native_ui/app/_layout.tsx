@@ -10,9 +10,12 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { Pressable } from "react-native";
 import { useCart } from "@/store/cartStore";
 import { Text } from "@/components/ui/text";
+import { useAuth } from "@/store/authStore";
 const queryClient = new QueryClient();
 const RootLayout = () => {
   const cartItems = useCart((state) => state.items.length);
+  const isLoggedIn = useAuth((state) => !!state.token);
+
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider>
@@ -26,18 +29,22 @@ const RootLayout = () => {
                 </Pressable>
               </Link>
             ),
-            headerLeft: () => (
-              <Link href={"/login"} asChild>
-                <Pressable className="flex-row gap-2">
-                  <AntDesign name="user" size={24} color="black" />
-                </Pressable>
-              </Link>
-            ),
           }}
         >
           <Stack.Screen
             name="index"
-            options={{ title: "Shop", headerTitleAlign: "center" }}
+            options={{
+              title: "Shop",
+              headerTitleAlign: "center",
+              headerLeft: () =>
+                !isLoggedIn && (
+                  <Link href={"/login"} asChild>
+                    <Pressable className="flex-row gap-2">
+                      <AntDesign name="user" size={24} color="black" />
+                    </Pressable>
+                  </Link>
+                ),
+            }}
           />
         </Stack>
       </GluestackUIProvider>
