@@ -1,7 +1,6 @@
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import React from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
-import products from "../../assets/products.json";
 import { Card } from "@/components/ui/card";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
@@ -9,16 +8,27 @@ import { VStack } from "@/components/ui/vstack";
 import { Heading } from "@/components/ui/heading";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { getProductById } from "@/api/products";
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
-  const product = products.find(
-    (product) => product.id === Number.parseInt(id)
-  );
 
-  if (!product) {
-    return <Text>Product not found</Text>;
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["products", id],
+    queryFn: () => getProductById(Number(id)),
+  });
+  if (isLoading) {
+    return <ActivityIndicator />;
   }
+  if (error) {
+    return <Text>{error.message}</Text>;
+  }
+
   return (
     <Box className="  flex-1 items-center p-3">
       <Stack.Screen options={{ title: product.name }} />
