@@ -17,8 +17,14 @@ import { verifySeller, verifyToken } from "../../middlewares/authMiddleware";
 const router = Router();
 router.get("/", listProducts);
 router.get("/:id", getProductById);
-router.put("/:id", validateData(updateProductSchema), updateProduct);
-router.delete("/:id", deleteProduct);
+router.put(
+  "/:id",
+  verifyToken,
+  verifySeller,
+  validateData(updateProductSchema),
+  updateProduct
+);
+router.delete("/:id", verifyToken, verifySeller, deleteProduct);
 router.post(
   "/",
   verifyToken,
