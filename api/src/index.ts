@@ -1,6 +1,6 @@
 import express from "express";
-import productRouter from "./routes/products/index";
-import authRouter from "./routes/auth/index";
+import productRouter from "./routes/products/index.js";
+import authRouter from "./routes/auth/index.js";
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

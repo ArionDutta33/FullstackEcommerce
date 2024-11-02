@@ -3,11 +3,11 @@ import {
   createUserSchema,
   loginSchema,
   usersTable,
-} from "../../db/usersSchema";
+} from "../../db/usersSchema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { validateData } from "../../middlewares/validationMiddleware";
-import { db } from "../../db";
+import { validateData } from "../../middlewares/validationMiddleware.js";
+import { db } from "../../db/index.js";
 import { eq } from "drizzle-orm";
 import { Request, Response } from "express";
 const router = Router();
