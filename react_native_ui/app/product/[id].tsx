@@ -10,10 +10,13 @@ import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { getProductById } from "@/api/products";
+import { useCart } from "@/store/cartStore";
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
-
+  const addProduct = useCart((state) => state.addProducts);
+  const cartItems = useCart((state) => state.items);
+  console.log(JSON.stringify(cartItems, null, 2));
   const {
     data: product,
     error,
@@ -22,6 +25,11 @@ const ProductDetailsScreen = () => {
     queryKey: ["products", id],
     queryFn: () => getProductById(Number(id)),
   });
+
+  const addToCart = () => {
+    addProduct(product); //*product from tanstack query
+  };
+
   if (isLoading) {
     return <ActivityIndicator />;
   }
@@ -52,7 +60,10 @@ const ProductDetailsScreen = () => {
           <Text size="sm">{product.description}</Text>
         </VStack>
         <Box className="flex-col sm:flex-row">
-          <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
+          <Button
+            onPress={addToCart}
+            className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
+          >
             <ButtonText size="sm">Add to cart</ButtonText>
           </Button>
           <Button
