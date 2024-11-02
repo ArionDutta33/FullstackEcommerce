@@ -2,7 +2,7 @@
   "expo": {
     "name": "react_native_ui",
     "slug": "react_native_ui",
-    "scheme": "ecommerce",
+    "scheme": "trustore",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -1,16 +1,15 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
-import { Stack } from "expo-router";
 import products from "../assets/products.json";
-import ProductListItem from "../components/productListItem";
+import ProductItemList from "../components/productItemList";
 
-const index = () => {
+const HomeScreen = () => {
   return (
     <FlatList
       data={products}
-      renderItem={({ item }) => <ProductListItem product={item} />}
+      renderItem={({ item }) => <ProductItemList product={item} />}
     />
   );
 };
 
-export default index;
+export default HomeScreen;
