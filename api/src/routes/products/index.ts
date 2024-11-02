@@ -12,12 +12,19 @@ import {
   createProductSchema,
   updateProductSchema,
 } from "../../db/productSchema";
+import { verifySeller, verifyToken } from "../../middlewares/authMiddleware";
 
 const router = Router();
 router.get("/", listProducts);
 router.get("/:id", getProductById);
 router.put("/:id", validateData(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);
-router.post("/", validateData(createProductSchema), createProduct);
+router.post(
+  "/",
+  verifyToken,
+  verifySeller,
+  validateData(createProductSchema),
+  createProduct
+);
 
 export default router;

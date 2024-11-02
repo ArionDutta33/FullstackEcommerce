@@ -8,6 +8,13 @@
       "when": 1730519696584,
       "tag": "0000_clear_bug",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1730531492140,
+      "tag": "0001_confused_toro",
+      "breakpoints": true
     }
   ]
 }
