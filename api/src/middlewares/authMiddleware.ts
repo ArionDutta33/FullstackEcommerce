@@ -35,7 +35,7 @@ export async function verifySeller(
   try {
     //decode jwt
     const decoded = jwt.verify(token, "secret");
-    if (typeof decoded !== "object" || decoded?.userId) {
+    if (typeof decoded !== "object" || !decoded?.userId) {
       return res.status(400).json({ error: "Access denied" });
     }
     if (decoded.role !== "seller") {
