@@ -15,6 +15,13 @@
       "when": 1730531492140,
       "tag": "0001_confused_toro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730604088365,
+      "tag": "0002_eminent_miracleman",
+      "breakpoints": true
     }
   ]
 }
