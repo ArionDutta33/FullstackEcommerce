@@ -24,7 +24,12 @@ const HomeScreen = () => {
     xl: 4,
   });
   if (isLoading) return <ActivityIndicator />;
-  if (error) return <Text>error</Text>;
+  if (error) {
+     console.log(error.message);
+     console.log(error.stack);
+  }
+ 
+ 
   return (
     <FlatList
       key={numColumns}
